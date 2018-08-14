@@ -48,11 +48,19 @@ const parseHardware = byte13 => {
   const modem  = core.convertBase(data.substr(0, 3), 2, 10);
   const model = core.convertBase(data.substr(3, 5), 2, 10);
   const hardware = hardwares.find(x => x.model.id === model && x.modem.code === modem);
-  return {
-    id: hardware.model.id,
-    model: hardware.model.name,
-    modem: hardware.modem.name
-  };
+  if(hardware){
+    return {
+      id: hardware.model.id,
+      model: hardware.model.name,
+      modem: hardware.modem.name
+    };
+  }else{
+    return {
+      id: 0,
+      model: model,
+      modem: modem
+    };
+  }
 };
 
 const parseSoftware = byte14 => {
